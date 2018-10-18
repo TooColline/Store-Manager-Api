@@ -1,30 +1,35 @@
 import os
 
+
 class Config(object):
     """Parent configuration class."""
-    DEBUG = False
+    DEBUG = True
 
-class DevelopmentConfig(Config):
+
+class Development(Config):
     """Configurations for Development."""
     DEBUG = True
 
-class TestingConfig(Config):
+
+class Testing(Config):
     """Configurations for Testing, with a separate test database."""
     TESTING = True
     DEBUG = True
 
-class StagingConfig(Config):
+class Staging(Config):
     """Configurations for Staging."""
     DEBUG = True
 
-class ProductionConfig(Config):
+
+class Production(Config):
     """Configurations for Production."""
     DEBUG = False
     TESTING = False
 
-app_config = {
-    'development': DevelopmentConfig,
-    'testing': TestingConfig,
-    'staging': StagingConfig,
-    'production': ProductionConfig,
+
+config = {
+    'development': Development,
+    'testing': Testing,
+    'staging': Staging,
+    'production': Production
 }
