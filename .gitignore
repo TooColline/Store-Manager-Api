@@ -1,0 +1,29 @@
+*.py[cod]
+!.gitignore
+!.pylintrc
+!.travis*
+*.log
+*.pyc
+
+__pycache__/
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
