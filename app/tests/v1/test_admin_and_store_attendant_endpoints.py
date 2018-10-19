@@ -12,5 +12,5 @@ class AdminStoreAttendant(base_test.BaseTestClass):
 
         self.assertEqual(response.status_code, 200)
 
-        self.assertEqual(len(general_helper_functions.convert_json(
-            response)['products']), 0)
+        self.assertEqual(general_helper_functions.convert_json(
+            response)['products'][0]['name'], self.Product['name'])
