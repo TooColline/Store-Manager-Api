@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request, abort, make_response
 from flask_restful import Resource
 
 from . import general_helper_functions
-from ..models import products
+from ..models import products, sales
 
 class Admin(Resource):
     """Simple class that holds admin endpoints"""
@@ -53,5 +53,24 @@ class Admin(Resource):
         else:
             """Check if there are no products in the store at all"""
             response = general_helper_functions.add_new_product(name, price, category)
+
+        return response
+
+class SalesRecords(Resource):
+    """A simple class that keeps track of sales records"""
+
+    def get(self):
+        """For GET /saleorder"""
+        
+        if not sales.salerec:
+            # Check if there is no sale records made yet
+
+            abort(make_response(
+                jsonify(message="There are no sale orders made yet"), 404))
+
+        # Confirm if at least one sale record exists
+        response = jsonify({'SaleOrder': sales.salerec})
+
+        response.status_code = 200
 
         return response
