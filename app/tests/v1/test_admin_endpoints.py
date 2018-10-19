@@ -27,3 +27,14 @@ class TestAdminEndpoints(base_test.BaseTestClass):
 
         self.assertEqual(general_helper_functions.convert_json(
             response)['message'], 'Product added to store successfully')
+    
+    def test_get_all_products(self):
+        """For GET /products only if it exists"""
+
+        response = self.app_test_client.get(
+            '{}/products'.format(self.base_url))
+
+        self.assertEqual(response.status_code, 200)
+
+        self.assertEqual(general_helper_functions.convert_json(
+            response)['products'][0]['name'], self.Product['name'])
