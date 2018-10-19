@@ -1,3 +1,4 @@
+import json
 from . import base_test
 from . import general_helper_functions
 
@@ -49,3 +50,25 @@ class TestAdminEndpoints(base_test.BaseTestClass):
         
         self.assertEqual(general_helper_functions.convert_json(
             response)['name'], self.Product['name'])
+    
+    def test_get_sale_records(self):
+        """For Test GET /saleorder only if a sale record exists"""
+
+        self.app_test_client.post(
+        '{}/saleorder'.format(
+            self.base_url), data=json.dumps(dict(
+                                                sale_id = 1,
+                                                name = "Sample Bags",
+                                                price = 20,
+                                                quantity = 1,
+                                                totalamt = 20
+                                                )), content_type='application/json')
+
+        response = self.app_test_client.get(
+            '{}/saleorder'.format(self.base_url)
+        )
+        
+        self.assertEqual(response.status_code, 200)
+
+        self.assertEqual(general_helper_functions.convert_json(
+            response)['SaleOrder'][0]['name'], "Sample Bags")
