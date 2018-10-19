@@ -20,6 +20,13 @@ class BaseTestClass(unittest.TestCase):
         'price': 17000,
         'category': 'Home & Furniture'
         }
+
+        self.SaleOrder = {
+            'name': 'Carpet',
+            'price': 17000,
+            'quantity': 2,
+            'totalamt': (17000 * 2)
+        }
         
     def tearDown(self):
         """tear down dictionaries"""
