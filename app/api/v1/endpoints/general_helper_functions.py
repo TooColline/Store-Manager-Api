@@ -88,3 +88,14 @@ def add_sale_record(name, price, quantity, totalamt):
         # if any of the required parameters is missing or none
         miss_parameter_required()
     return response
+
+def get_specific_sale_record(sale_id):
+    """Get specific record given a sale id"""
+    specific_sale_record = None
+    for sale_order in sales.salerec:
+        if sale_order['sale_id'] == sale_id:
+            specific_sale_record = sale_order
+            break
+    if not specific_sale_record:
+        abort_if_not_found(sale_id)
+    return specific_sale_record
