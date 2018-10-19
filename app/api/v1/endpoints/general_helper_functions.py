@@ -1,7 +1,7 @@
 from flask import abort, jsonify, make_response
 from datetime import datetime
 
-from app.api.v1.models import products
+from ..models import products
 
 def json_null_request(data):
     """Abort, if data has no json object."""
@@ -41,3 +41,24 @@ def add_new_product(name, price, category):
         """no parameters missing"""
         miss_parameter_required()
     return response
+
+def get_specific_product(product_id):
+    """General method to get a specific product from the store"""
+
+    specific_product = None
+
+    for product in products.Products:
+        if product['product_id'] == product_id:
+            specific_product = product
+            break
+
+    if not specific_product:
+        abort_if_not_found(product_id)
+
+    return specific_product
+
+def abort_if_not_found(product_id):
+    """General method to abort get request if the specific product is not in store"""
+
+    abort(make_response(jsonify(
+        message="Product with id number {} not found".format(product_id)), 404))
