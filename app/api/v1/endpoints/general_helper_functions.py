@@ -1,7 +1,7 @@
 from flask import abort, jsonify, make_response
 from datetime import datetime
 
-from app.api.v1.models import products
+from ..models import products
 
 def json_null_request(data):
     """Abort, if data has no json object."""
