@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request, abort, make_response
 from flask_restful import Resource
 
 from . import general_helper_functions
-from app.api.v1.models import products
+from ..models import products
 
 class Admin(Resource):
     """Simple class that holds admin endpoints"""
@@ -21,14 +21,14 @@ class Admin(Resource):
         except KeyError:
             general_helper_functions.miss_parameter_required()
 
-        if not isinstance(name, str):
-            abort(make_response(jsonify(
-                message="Bad request. The product name should be in a string format."
-            ), 400))
-
         if price < 1:
             abort(make_response(jsonify(
                 message="Bad request. The price should be a positive number."
+            ), 400))
+
+        if not isinstance(name, str):
+            abort(make_response(jsonify(
+                message="Bad request. The product name should be in a string format."
             ), 400))
 
         if not isinstance(category, str):
