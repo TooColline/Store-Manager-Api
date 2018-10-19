@@ -20,16 +20,14 @@ class AdminAndStoreAttendant(Resource):
         response.status_code = 200
 
         return response
-
+    
 class GetSpecificProduct(Resource):
-
+    """Simple class that hold functions to get a specific product"""
+    
     def get(self, product_id):
         """For GET /products/<int:product_id>"""
         
         product = general_helper_functions.get_specific_product(product_id)
-
         response = jsonify(product)
-
         response.status_code = 200
-
-        return response
+        return response 
