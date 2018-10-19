@@ -45,3 +45,11 @@ class StoreAttendant(Resource):
         response = general_helper_functions.add_sale_record(name, price, quantity, totalamt)
 
         return response
+
+class SpecificSaleRecord(Resource):
+
+    def get(self, sale_id):
+        """GET /saleorder/<int:sale_order_id>"""
+        sale_order = general_helper_functions.get_specific_sale_record(sale_id)
+        response = jsonify(sale_order)
+        response.status_code = 200
