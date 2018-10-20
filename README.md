@@ -30,3 +30,4 @@ This challenge was part of the Bootcamp 33 NBO Andela.
 Too Collins
 
 ## Deployment
+[Heroku](https://store-manager-app-api-heroku.herokuapp.com/api/v1/products)
