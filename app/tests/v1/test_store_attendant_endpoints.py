@@ -38,7 +38,7 @@ class TestStoreAttendantEndpoints(base_test.BaseTestClass):
 
     
     def test_add_sale_with_price_below_one(self):
-        """Test POST /saleorder with the product price zero or negativr"""
+        """Test POST /saleorder with the product price zero or negative"""
 
         response = self.app_test_client.post('{}/saleorder'.format(
             self.base_url), json={'name': 'Torch', 'price': -10, 'quantity': 5},
@@ -47,7 +47,7 @@ class TestStoreAttendantEndpoints(base_test.BaseTestClass):
         self.assertEqual(response.status_code, 400)
 
         self.assertEqual(general_helper_functions.convert_json(
-            response)['message'], 'Bad request. The product price should be a positive integer above 0.')
+            response)['message'], 'Bad request. The product price should be a positive number above 0.')
 
 
     def test_add_sale_with_product_name_not_string(self):

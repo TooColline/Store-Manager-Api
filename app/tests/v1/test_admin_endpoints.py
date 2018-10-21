@@ -72,6 +72,7 @@ class TestAdminEndpoints(base_test.BaseTestClass):
 
         self.assertEqual(general_helper_functions.convert_json(
             response)['SaleOrder'][0]['name'], "Sample Bags")
+
     def test_add_new_product_price_negative(self):
         """Test POST /products with the price of a negative number or zero"""
 
