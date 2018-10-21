@@ -28,7 +28,7 @@ class Admin(Resource):
 
         if not isinstance(name, str):
             abort(make_response(jsonify(
-                message="Bad request. The product name should be in a string format."
+                message="Bad request. The price should be a positive number and not 0."
             ), 400))
 
         if not isinstance(category, str):
