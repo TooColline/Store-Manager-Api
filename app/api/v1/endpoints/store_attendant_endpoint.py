@@ -34,7 +34,7 @@ class StoreAttendant(Resource):
         
         if price < 1:
             abort(make_response(jsonify(
-                message="Bad request. The product price should be a positive integer."
+                message="Bad request. The product price should be a positive integer above 0."
             ), 400))
 
         if not isinstance(quantity, int):

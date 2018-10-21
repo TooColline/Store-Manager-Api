@@ -27,3 +27,55 @@ class TestStoreAttendantEndpoints(base_test.BaseTestClass):
 
         self.assertEqual(general_helper_functions.convert_json(
             response)['message'], 'Sale record has been created successfully')
+
+    
+    def test_add_sale_with_price_below_one(self):
+        """Test POST /saleorder with the product price zero or negativr"""
+
+        response = self.app_test_client.post('{}/saleorder'.format(
+            self.base_url), json={'name': 'Torch', 'price': -10, 'quantity': 5},
+            headers={'Content-Type': 'application/json'})
+
+        self.assertEqual(response.status_code, 400)
+
+        self.assertEqual(general_helper_functions.convert_json(
+            response)['message'], 'Bad request. The product price should be a positive integer above 0.')
+
+
+    def test_add_sale_with_product_name_not_string(self):
+        """Test POST /saleorder with the product name not in a string format"""
+
+        response = self.app_test_client.post('{}/saleorder'.format(
+            self.base_url), json={'name': 1, 'price': 1500, 'quantity': 10},
+            headers={'Content-Type': 'application/json'})
+
+        self.assertEqual(response.status_code, 400)
+
+        self.assertEqual(general_helper_functions.convert_json(
+            response)['message'], 'Bad request. The product name should be a string.')
+
+
+    def test_add_sale_with_price_not_digit_format(self):
+        """Test POST /saleorder with the product price not a valid format"""
+
+        response = self.app_test_client.post('{}/saleorder'.format(
+            self.base_url), json={'name': "Hand Bag", 'price': "1500", 'quantity': 3},
+            headers={'Content-Type': 'application/json'})
+
+        self.assertEqual(response.status_code, 400)
+
+        self.assertEqual(general_helper_functions.convert_json(
+            response)['message'], 'Bad request. The product price should be an integer.')
+
+
+    def test_add_sale_with_invalid_quantity(self):
+        """Test POST /saleorder with an invalid quantity not in digit"""
+        
+        response = self.app_test_client.post('{}/saleorder'.format(
+            self.base_url), json={'name': "Hand Bag", 'price': 1500, 'quantity': "5"}, 
+            headers={'Content-Type': 'application/json'})
+
+        self.assertEqual(response.status_code, 400)
+
+        self.assertEqual(general_helper_functions.convert_json(
+            response)['message'], 'Bad request. The quantity should be an integer.')
