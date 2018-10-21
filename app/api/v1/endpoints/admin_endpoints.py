@@ -28,7 +28,7 @@ class Admin(Resource):
 
         if price < 1:
             abort(make_response(jsonify(
-                message="Bad request. The price should be a positive number."
+                message="Bad request. The price should be a positive number and not 0."
             ), 400))
 
         if not isinstance(category, str):
