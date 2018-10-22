@@ -29,5 +29,8 @@ This challenge was part of the Bootcamp 33 NBO Andela.
 ## Author
 Too Collins
 
+## Documentation
+https://documenter.getpostman.com/view/5601454/RWgwQam2
+
 ## Deployment
 [Heroku](https://store-manager-app-api-heroku.herokuapp.com/api/v1/products)
