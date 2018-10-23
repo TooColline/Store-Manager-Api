@@ -46,22 +46,24 @@ class ProductsModel():
 
 class SalesModel():
     '''Initializes a sale'''
-    def __init__(self, saleId, userId, product):
-        self.saleId = saleId
-        self.userId = userId
-        self.product = product
+
+    def __init__(self, data):
+        self.id = len(salerec) + 1
+        self.sales = data
+
     '''Saves a sale to sale records'''
     def save(self):
         new_sale = {
-                    "saleId": self.saleId,
-                    "userId": self.userId,
-                    "product": self.product
+                    "sale_id": self.sales["sale_id"],
+                    "name": self.sales["name"],
+                    "price": self.sales["price"],
+                    "quantity": self.sales["quantity"],
+                    "totalamt": self.sales["totalamt"]
                     }
         salerec.append(new_sale)
 
 def destroy():
-    '''Destroys all the data in the data structures duting teardown
-    in testing'''
+    '''Destroys all the data logic of the application during taredown'''
     users.clear()
     Products.clear()
     salerec.clear()
