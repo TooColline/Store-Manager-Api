@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request, abort, make_response
 from flask_restful import Resource
 
 from . import general_helper_functions
-from ..models import models
+from ..models import ProductsModel, SalesModel
 
 class Admin(Resource):
     """Simple class that holds admin endpoints"""
@@ -36,12 +36,12 @@ class Admin(Resource):
                 message="Bad request. The category should be in a string format"
             ), 400))
 
-        if models.Products:
+        if ProductsModel.Products:
             """Checking if product is in the store already"""
             try:
                 """Those with similar name"""
                 already_existing_product = [
-                    product for product in models.Products if product['name'] == name][0]
+                    product for product in ProductsModel.Products if product['name'] == name][0]
 
                 abort(make_response(jsonify({
                     "message": "Sorry. A product with a similar name already exists.",
@@ -62,14 +62,14 @@ class SalesRecords(Resource):
     def get(self):
         """For GET /saleorder"""
         
-        if not models.salerec:
+        if not SalesModel.salerec:
             # Check if there is no sale records made yet
 
             abort(make_response(
                 jsonify(message="There are no sale orders made yet"), 404))
 
         # Confirm if at least one sale record exists
-        response = jsonify({'SaleOrder': models.salerec})
+        response = jsonify({'SaleOrder': SalesModel.salerec})
 
         response.status_code = 200
 

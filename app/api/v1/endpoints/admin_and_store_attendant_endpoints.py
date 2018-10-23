@@ -2,20 +2,20 @@ from flask import jsonify, abort, make_response
 from flask_restful import Resource
 
 from . import general_helper_functions
-from ..models import models
+from ..models import ProductsModel, SalesModel
 
 class AdminAndStoreAttendant(Resource):
     """Simple class that holds functions for both admin and store attendant"""
 
     def get(self):
         """For GET /products"""
-        if not models.Products:
+        if not ProductsModel.Products:
             # If no products exist in the store yet
             abort(make_response(
                 jsonify(message="There are no products in the store yet"), 404))
 
         # Check if there is at least one product in the store
-        response = jsonify({'products': models.Products})
+        response = jsonify({'products': ProductsModel.Products})
 
         response.status_code = 200
 

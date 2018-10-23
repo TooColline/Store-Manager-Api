@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request, abort, make_response
 from flask_restful import Resource
 
 from . import general_helper_functions
-from ..models import models
+from ..models import ProductsModel, SalesModel
 
 class StoreAttendant(Resource):
     """Simple class that holds the store endpoints"""

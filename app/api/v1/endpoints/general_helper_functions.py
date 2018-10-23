@@ -1,7 +1,7 @@
 from flask import abort, jsonify, make_response
 from datetime import datetime
 
-from ..models import models
+from ..models import UserModel, ProductsModel, SalesModel
 def json_null_request(data):
     """Abort, if data has no json object."""
         
@@ -22,7 +22,7 @@ def add_new_product(name, price, category):
 
     if name and price and category:
         """If all product parameters are given"""
-        product_id = len(models.Products) + 1
+        product_id = len(ProductsModel.Products) + 1
         product = {
             'product_id': product_id,
             'name': name,
@@ -30,10 +30,10 @@ def add_new_product(name, price, category):
             'category': category,
         }
 
-        models.Products.append(product)
+        ProductsModel.Products.append(product)
         response = jsonify({
             "message": "Product added to store successfully",
-            "product": models.Products[-1]})
+            "product": ProductsModel.Products[-1]})
         response.status_code = 201
     else:
         """no parameters missing"""
@@ -45,7 +45,7 @@ def get_specific_product(product_id):
 
     specific_product = None
 
-    for product in models.Products:
+    for product in ProductsModel.Products:
         if product['product_id'] == product_id:
             specific_product = product
             break
@@ -67,7 +67,7 @@ def add_sale_record(name, price, quantity, totalamt):
 
     if name and price and quantity and totalamt:
         # If all the required data are provided
-        sale_id = len(models.salerec) + 1
+        sale_id = len(SalesModel.salerec) + 1
         SaleOrder = {
             'sale_id': sale_id,
             'name': name,
@@ -77,10 +77,10 @@ def add_sale_record(name, price, quantity, totalamt):
             'date_added': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         }
 
-        models.salerec.append(SaleOrder)
+        SalesModel.salerec.append(SaleOrder)
         response = jsonify({
             "message": "Sale record has been created successfully",
-            "SaleOrder": models.salerec[-1]})
+            "SaleOrder": SalesModel.salerec[-1]})
         response.status_code = 201
     else:
         # if any of the required parameters is missing or none
@@ -90,7 +90,7 @@ def add_sale_record(name, price, quantity, totalamt):
 def get_specific_sale_record(sale_id):
     """Get specific record given a sale id"""
     specific_sale_record = None
-    for sale_order in models.salerec:
+    for sale_order in SalesModel.salerec:
         if sale_order['sale_id'] == sale_id:
             specific_sale_record = sale_order
             break
