@@ -1,14 +1,22 @@
+import os
 from flask import Flask, jsonify, request, abort, make_response
 from flask_restful import Resource
+from flask_jwt_extended import get_jwt_identity, jwt_required
+from functools import wraps
+import jwt
 
 from . import general_helper_functions
 from ..models import ProductsModel, SalesModel
+from ..utils import token_verification
 
 class Admin(Resource):
     """Simple class that holds admin endpoints"""
 
     def post(self):
         """POST /products"""
+
+        logged_user = token_verification.verify_tokens()
+        general_helper_functions.abort_user_if_not_admin(logged_user)
                   
         data = request.get_json()
         general_helper_functions.json_null_request(data)
@@ -61,6 +69,8 @@ class SalesRecords(Resource):
 
     def get(self):
         """For GET /saleorder"""
+
+        token_verification.verify_tokens()
         
         if not SalesModel.salerec:
             # Check if there is no sale records made yet
@@ -69,8 +79,9 @@ class SalesRecords(Resource):
                 jsonify(message="There are no sale orders made yet"), 404))
 
         # Confirm if at least one sale record exists
-        response = jsonify({'SaleOrder': SalesModel.salerec})
-
+        response = jsonify({
+            'message': "Successfully fetched all the sale orders",
+            'sale_orders': SalesModel.salerec
+            })
         response.status_code = 200
-
         return response

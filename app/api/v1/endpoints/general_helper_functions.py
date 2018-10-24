@@ -1,7 +1,9 @@
-from flask import abort, jsonify, make_response
-from datetime import datetime
+from flask import jsonify, abort, make_response
+from flask_restful import Resource
 
+from datetime import datetime
 from ..models import UserModel, ProductsModel, SalesModel
+
 def json_null_request(data):
     """Abort, if data has no json object."""
         
@@ -97,3 +99,10 @@ def get_specific_sale_record(sale_id):
     if not specific_sale_record:
         abort_if_not_found(sale_id)
     return specific_sale_record
+
+def abort_user_if_not_admin(user):
+    user_role = [users['role'] for users in UserModel.users if users['email'] == user][0]
+    if user_role!= "Admin":
+        abort(make_response(jsonify(
+            message="Unauthorized access, please contact your administrator!"
+        ), 401))

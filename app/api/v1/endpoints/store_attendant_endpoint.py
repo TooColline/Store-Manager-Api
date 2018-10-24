@@ -1,14 +1,18 @@
 from flask import Flask, jsonify, request, abort, make_response
 from flask_restful import Resource
+from flask_jwt_extended import get_jwt_identity, jwt_required
 
 from . import general_helper_functions
 from ..models import ProductsModel, SalesModel
+from ..utils import token_verification
 
 class StoreAttendant(Resource):
     """Simple class that holds the store endpoints"""
 
     def post(self):
         """POST /products"""
+
+        token_verification.verify_tokens()
                   
         data = request.get_json()
         general_helper_functions.json_null_request(data)
@@ -17,7 +21,7 @@ class StoreAttendant(Resource):
             name = data['name']
             price = data['price']
             quantity = data['quantity']
-            totalamt = (price * quantity)
+            totalamt = data['totalamt']
 
         except KeyError:
             general_helper_functions.miss_parameter_required()
@@ -42,9 +46,13 @@ class StoreAttendant(Resource):
                 message="Bad request. The quantity should be an integer."
             ), 400))
 
-        response = general_helper_functions.add_sale_record(name, price, quantity, totalamt)
+        sale_order = SalesModel.SalesModel(name, price, quantity, totalamt)
+        response = sale_order.save()
 
-        return response
+        return make_response(jsonify({
+            "message": "Checkout complete",
+            "saleorder": response
+        }), 201)
 
 class SpecificSaleRecord(Resource):
 

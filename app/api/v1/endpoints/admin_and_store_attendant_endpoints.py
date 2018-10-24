@@ -3,6 +3,7 @@ from flask_restful import Resource
 
 from . import general_helper_functions
 from ..models import ProductsModel, SalesModel
+from ..utils import token_verification
 
 class AdminAndStoreAttendant(Resource):
     """Simple class that holds functions for both admin and store attendant"""
@@ -15,8 +16,10 @@ class AdminAndStoreAttendant(Resource):
                 jsonify(message="There are no products in the store yet"), 404))
 
         # Check if there is at least one product in the store
-        response = jsonify({'products': ProductsModel.Products})
-
+        response = jsonify({
+            'message': "Successfully fetched all the products",
+            'products': ProductsModel.Products
+            })
         response.status_code = 200
 
         return response
@@ -26,8 +29,19 @@ class GetSpecificProduct(Resource):
     
     def get(self, product_id):
         """For GET /products/<int:product_id>"""
-        
-        product = general_helper_functions.get_specific_product(product_id)
-        response = jsonify(product)
-        response.status_code = 200
-        return response 
+
+        token_verification.verify_tokens()
+
+        for product in ProductsModel.Products:
+            if product["product_id"] == product_id:
+                return make_response(jsonify({
+                    "message": "{} retrieved successfully".format(product["name"]),
+                    "product": product
+                }
+                ), 200)
+
+            else:
+                return make_response(jsonify({
+                    "message": "Product with id {} not found".format(product_id)
+                }
+                ), 404)
