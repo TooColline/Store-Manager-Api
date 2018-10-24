@@ -14,7 +14,7 @@ def verify_tokens():
             abort(make_response(jsonify({
                                  "Message": "You need to login"}), 401))
         try:
-            data = jwt.decode(token, os.getenv('JWT_SECRET_KEY', default='thisissecret'))
+            data = jwt.decode(token, os.getenv('JWT_SECRET_KEY', default='thisissecret'), algorithms=['HS256'])
             for user in UserModel.users:
                 if user['email'] == data['email']:
                     logged_user = user
