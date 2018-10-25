@@ -57,7 +57,20 @@ class StoreAttendant(Resource):
 class SpecificSaleRecord(Resource):
 
     def get(self, sale_id):
-        """GET /saleorder/<int:sale_order_id>"""
-        sale_order = general_helper_functions.get_specific_sale_record(sale_id)
-        response = jsonify(sale_order)
-        response.status_code = 200
+        """For GET /products/<int:sale_id>"""
+
+        token_verification.verify_tokens()
+
+        for sale_order in SalesModel.salerec:
+            if sale_order["sale_id"] == sale_id:
+                return make_response(jsonify({
+                    "message": "{} retrieved successfully".format(sale_order["sale_id"]),
+                    "sale_order": sale_order
+                }
+                ), 200)
+
+            else:
+                return make_response(jsonify({
+                    "message": "Sale with id {} not found".format(sale_id)
+                }
+                ), 404)

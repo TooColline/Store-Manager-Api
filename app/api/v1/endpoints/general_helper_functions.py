@@ -11,13 +11,11 @@ def json_null_request(data):
         abort(make_response(jsonify(
             message="Bad request. Request must be in json format"), 400))
 
-
 def miss_parameter_required():
     """Abort, if data is missing a required parameter."""
 
     abort(make_response(jsonify(
         message="Bad request. Request missing a required parameter"), 400))
-
 
 def add_new_product(name, price, category):
     """Creates a new product"""
@@ -47,17 +45,6 @@ def abort_if_not_found(product_id):
 
     abort(make_response(jsonify(
         message="Product with id number {} not found".format(product_id)), 404))
-
-def get_specific_sale_record(sale_id):
-    """Get specific record given a sale id"""
-    specific_sale_record = None
-    for sale_order in SalesModel.salerec:
-        if sale_order['sale_id'] == sale_id:
-            specific_sale_record = sale_order
-            break
-    if not specific_sale_record:
-        abort_if_not_found(sale_id)
-    return specific_sale_record
 
 def abort_user_if_not_admin(user):
     user_role = [users['role'] for users in UserModel.users if users['email'] == user][0]
