@@ -6,6 +6,12 @@ Store Manager is a web application that helps store owners manage sales and prod
 
 ### Endpoints
 
+#### Auth Endpoints
+Method | Endpoint | Functionality
+--- | --- | ---
+POST | `/api/v1/auth/signup` | Create a new user
+POST | `/api/v1/auth/login` | Login a registered user
+
 #### Admin Endpoints
 Method | Endpoint | Functionality
 --- | --- | ---
