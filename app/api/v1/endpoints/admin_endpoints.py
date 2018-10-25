@@ -9,7 +9,7 @@ from . import general_helper_functions
 from ..models import ProductsModel, SalesModel
 from ..utils import token_verification
 
-class Admin(Resource):
+class AddProduct(Resource):
     """Simple class that holds admin endpoints"""
 
     def post(self):
@@ -64,7 +64,7 @@ class Admin(Resource):
 
         return response
 
-class SalesRecords(Resource):
+class GetAllSales(Resource):
     """A simple class that keeps track of sales records"""
 
     def get(self):

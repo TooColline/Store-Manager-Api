@@ -28,7 +28,7 @@ class TestStoreAttendantEndpoints(base_test.BaseTestClass):
             response)['saleorder']['totalamt'], self.SaleOrder['totalamt'])
 
         self.assertEqual(general_helper_functions.convert_json(
-            response)['message'], 'Checkout complete')
+            response)['message'], 'Sale successfully made')
     
     def test_get_specific_sale_record(self):
         """For Test GET /saleorder/id only if at least one sale record exists"""

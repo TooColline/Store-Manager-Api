@@ -5,7 +5,7 @@ from . import general_helper_functions
 from ..models import ProductsModel, SalesModel
 from ..utils import token_verification
 
-class AdminAndStoreAttendant(Resource):
+class GetAllProducts(Resource):
     """Simple class that holds functions for both admin and store attendant"""
 
     def get(self):

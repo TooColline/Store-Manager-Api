@@ -6,7 +6,7 @@ from . import general_helper_functions
 from ..models import ProductsModel, SalesModel
 from ..utils import token_verification
 
-class StoreAttendant(Resource):
+class AddSale(Resource):
     """Simple class that holds the store endpoints"""
 
     def post(self):
@@ -50,7 +50,7 @@ class StoreAttendant(Resource):
         response = sale_order.save()
 
         return make_response(jsonify({
-            "message": "Checkout complete",
+            "message": "Sale successfully made",
             "saleorder": response
         }), 201)
 
