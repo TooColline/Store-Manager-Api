@@ -37,7 +37,7 @@ POST | `/api/v1/saleorder` | Add sale order
 6. Run the application using `python3 run.py` or `flask run`
 
 ### Tests
-Run this command inside your virtual environment: `coverage run --source=app.api.v1.views -m pytest /tests/v1 -v -W error::UserWarning && coverage report`
+Run this command inside your virtual environment: `coverage run --source=app.api.v1.endpoints -m pytest /tests/v1 -v -W error::UserWarning && coverage report`
 
 #### Technologies used
 1. Python flask framework
