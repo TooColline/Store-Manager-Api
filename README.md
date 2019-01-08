@@ -18,15 +18,15 @@ Method | Endpoint | Functionality
 POST | `/api/v1/products` | Add a new product
 GET | `/api/v1/products` | Get all products
 GET | `/api/v1/products/<int:product_id>` | Get specific product
-GET | `/api/v1/saleorder` | Get all sale orders
-GET | `/api/v1/saleorder/<int:sale_id>` | Get specific sale order
+GET | `/api/v1/sales` | Get all sale orders
+GET | `/api/v1/sales/<int:sale_id>` | Get specific sale order
 
 #### Store Attendant Endpoints
 Method | Endpoint | Functionality
 --- | --- | ---
 GET | `/api/v1/products` | Get all products
 GET | `/api/v1/products/<int:product_id>` | Get specific product
-POST | `/api/v1/saleorder` | Add sale order
+POST | `/api/v1/sales` | Add sale order
 
 ### Installing the application
 1. Open your terminal and `https://github.com/TooColline/Store-Manager-Api.git`
